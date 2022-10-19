@@ -1,0 +1,15 @@
+.profile__edit-heading {
+  font-family: 'Inter';
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
+  margin-top: 34px;
+}
+
+@media screen and (max-width: 650px) {
+  .profile__edit-heading {
+    font-size: 18px;
+    line-height: 22px;
+    margin-top: 25px;
+  }
+}

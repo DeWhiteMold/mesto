@@ -1,0 +1,12 @@
+.header__buttom-line {
+  height: 1px;
+  width: 100%;
+  margin-top: 40px;
+  background-color: #545454;
+}
+
+@media screen and (max-width: 879px) {
+  .header__buttom-line {
+    margin-top: 30px;
+  }
+}
