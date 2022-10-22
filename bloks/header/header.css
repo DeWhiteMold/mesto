@@ -5,9 +5,21 @@
   flex-direction: column;
 }
 
+.header::after {
+  content: "";
+  height: 1px;
+  width: 100%;
+  background-color: #545454;
+  opacity: .7;
+  margin-top: 40px;
+}
+
 @media screen and (max-width: 879px) {
-.header{
+.header {
   margin-top: 28px;
   width: 100%;
+}
+.header::after {
+  margin-top: 30px;
 }
 }

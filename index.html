@@ -9,84 +9,87 @@
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/logo-header.jpg" alt="Лого" class="header__logo">
-        <div class="header__buttom-line"></div>
+        <img src="./images/logo.svg" alt="Лого" class="header__logo">
       </header>
       <main class="content">
-        <div class="profile">
+        <section class="profile">
           <div class="profile__info">
             <div class="profile__info-box">
-              <img src="./images/profile-photo.jpg" alt="" class="profile__photo">
+              <img src="./images/profile-photo.jpg" alt="аватар" class="profile__photo">
               <div class="profile__text">
                 <div class="profile__upper-line">
                   <h1 class="profile__name">Жак-Ив Кусто</h1>
-                  <button class="profile__edit-button"></button>
+                  <button type="button" class="profile__edit-button"></button>
                 </div>
-                <h2 class="profile__description">Исследователь океана</h2>
+                <p class="profile__description">Исследователь океана</p>
               </div>
             </div>
-            <div class="profile__pop-up">
-              <div class="profile__edit-form">
-                <h2 class="profile__edit-heading">Редактировать профиль</h2>
-                <input type="text" class="profile__edit-name" placeholder="Жак-Ив Кусто">
-                <input type="text" class="profile__edit-description" placeholder="Исследователь океана">
-                <button type="submit" class="profile__save-button">Сохранить</button>
-                <button class="profile__close-button" >
-                  <img src="./images/CloseIcon.png" alt="закрыть" class="profile__close-icon">
-                </button>
-              </div>
-              <div class="profile__edit-overlay"></div>
-           </div>
           </div>
           <button class="profile__add-button"></button>
-        </div>
-        <ul class="gallery">
-          <li class="gallery__place">
-            <img src="./images/karachaevsk.jpg" alt="карачаевск" class="gallery__photo">
-            <div class="gallery__place-subscription">
-              <h2 class="gallery__place-name">Карачаевск</h2>
-              <button class="gallery__place-like"></button>
-            </div>
-          </li>
-          <li class="gallery__place">
-            <img src="./images/elbrus.jpg" alt="эльбрус" class="gallery__photo">
-            <div class="gallery__place-subscription">
-              <h2 class="gallery__place-name">Гора Эльбрус</h2>
-              <button class="gallery__place-like"></button>
-            </div>
-          </li>
-          <li class="gallery__place">
-            <img src="./images/dombai.jpg" alt="домбай" class="gallery__photo">
-            <div class="gallery__place-subscription">
-              <h2 class="gallery__place-name">Домбай</h2>
-              <button class="gallery__place-like"></button>
-            </div>
-          </li>
-          <li class="gallery__place">
-            <img src="./images/elbrus.jpg" alt="эльбрус" class="gallery__photo">
-            <div class="gallery__place-subscription">
-              <h2 class="gallery__place-name">Гора Эльбрус</h2>
-              <button class="gallery__place-like"></button>
-            </div>
-          </li>
-          <li class="gallery__place">
-            <img src="./images/dombai.jpg" alt="домбай" class="gallery__photo">
-            <div class="gallery__place-subscription">
-              <h2 class="gallery__place-name">Домбай</h2>
-              <button class="gallery__place-like"></button>
-            </div>
-          </li>
-          <li class="gallery__place">
-            <img src="./images/karachaevsk.jpg" alt="карачаевск" class="gallery__photo">
-            <div class="gallery__place-subscription">
-              <h2 class="gallery__place-name">Карачаево-Черкесия</h2>
-              <button class="gallery__place-like"></button>
-            </div>
-          </li>
-        </ul>
+        </section>
+        <section class="pop-up pop-up_visability">
+          <div class="pop-up__box">
+            <h2 class="pop-up__heading">Редактировать профиль</h2>
+            <form name="edit-form" class="pop-up__edit-form">
+              <input type="text" name="name" class="pop-up__input pop-up__input_type_name" placeholder="Жак-Ив Кусто">
+              <input type="text" name="description" class="pop-up__input pop-up__input_type_description" placeholder="Исследователь океана">
+              <button type="submit" class="pop-up__save-button">Сохранить</button>
+             </form>
+            <button type="button" class="pop-up__close-button">
+              <img src="./images/close.svg" alt="закрыть" class="pop-up__close-icon">
+            </button>
+          </div>
+          <div class="pop-up__overlay"></div>
+        </section>
+        <section class="gallery">
+          <ul class="gallery__table">
+            <li class="gallery__place">
+              <img src="./images/karachaevsk.jpg" alt="карачаевск" class="gallery__photo">
+              <div class="gallery__place-subscription">
+                <h2 class="gallery__place-name">Карачаевск</h2>
+                <button class="gallery__place-like"></button>
+              </div>
+            </li>
+            <li class="gallery__place">
+              <img src="./images/elbrus.jpg" alt="эльбрус" class="gallery__photo">
+              <div class="gallery__place-subscription">
+                <h2 class="gallery__place-name">Гора Эльбрус</h2>
+                <button class="gallery__place-like"></button>
+              </div>
+            </li>
+            <li class="gallery__place">
+              <img src="./images/dombai.jpg" alt="домбай" class="gallery__photo">
+              <div class="gallery__place-subscription">
+                <h2 class="gallery__place-name">Домбай</h2>
+                <button class="gallery__place-like"></button>
+              </div>
+            </li>
+            <li class="gallery__place">
+              <img src="./images/elbrus.jpg" alt="эльбрус" class="gallery__photo">
+              <div class="gallery__place-subscription">
+                <h2 class="gallery__place-name">Гора Эльбрус</h2>
+                <button class="gallery__place-like"></button>
+              </div>
+            </li>
+            <li class="gallery__place">
+              <img src="./images/dombai.jpg" alt="домбай" class="gallery__photo">
+              <div class="gallery__place-subscription">
+                <h2 class="gallery__place-name">Домбай</h2>
+                <button class="gallery__place-like"></button>
+              </div>
+            </li>
+            <li class="gallery__place">
+              <img src="./images/karachaevsk.jpg" alt="карачаевск" class="gallery__photo">
+              <div class="gallery__place-subscription">
+                <h2 class="gallery__place-name">Карачаево-Черкесия</h2>
+                <button class="gallery__place-like"></button>
+              </div>
+            </li>
+          </ul>
+      </section>
       </main>
       <footer class="footer">
-        <h3 class="footer__copyright">© 2020 Mesto Russia</h3>
+        <p class="footer__copyright">© 2020 Mesto Russia</p>
       </footer>
     </div>
     <script src="./script/script.js"></script>

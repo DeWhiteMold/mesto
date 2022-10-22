@@ -1,23 +1,20 @@
-.profile__edit-form {
-  position: fixed;
-  left: calc(( 100vw - 430px) / 2);
-  top: calc(( 100vh - 330px) / 2);
+.pop-up__box {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #fff;
   width: 430px;
-  height: 330px;
+  padding-bottom: 37px;
   border-radius: 10px;
   z-index: 2;
   box-sizing: border-box;
 }
 
 @media screen and (max-width: 650px) {
-  .profile__edit-form {
+  .pop-up__box {
     left: calc(( 100vw - 282px) / 2);
     top: calc(( 100vh - 322px) / 2);
     width: 282px;
-    height: 322px;
+    padding-bottom: 25px;
   }
 }
