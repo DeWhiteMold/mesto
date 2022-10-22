@@ -1,0 +1,6 @@
+.pop-up {
+  position: absolute;
+  left: calc(( 100vw - 430px) / 2);
+  top: calc(( 100vh - 330px) / 2);
+  z-index: 1;
+}
