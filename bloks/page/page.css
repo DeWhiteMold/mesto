@@ -4,4 +4,5 @@
   background-color: #000;
   align-items: center;
   position: relative;
+  overflow: hidden;
 }
