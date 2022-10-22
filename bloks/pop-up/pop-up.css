@@ -4,3 +4,11 @@
   top: calc(( 100vh - 330px) / 2);
   z-index: 1;
 }
+
+
+@media screen and (max-width: 650px) {
+  .pop-up {
+    left: calc(( 100vw - 282px) / 2);
+    top: calc(( 100vh - 322px) / 2);
+  }
+}
