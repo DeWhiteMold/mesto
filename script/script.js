@@ -27,6 +27,6 @@ function formSubmitHandler (evt) {
 }
 
 editButton.addEventListener('click', showPopUp);
-popUp.addEventListener('submit', formSubmitHandler);
+editForm.addEventListener('submit', formSubmitHandler);
 closeButton.addEventListener('click', hidePopUp);
 overlay.addEventListener('click', hidePopUp);

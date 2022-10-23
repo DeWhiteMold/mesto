@@ -16,6 +16,13 @@
   margin-top: 41px;
 }
 
-.pop-up__input:last-child {
+.pop-up__input:last-of-type {
   margin-top: 17px;
+}
+
+
+@media screen and (max-width: 650px) {
+  .pop-up__input:first-child {
+    margin-top: 62px;
+  }
 }
