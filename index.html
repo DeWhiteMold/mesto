@@ -25,13 +25,27 @@
           </div>
           <button type="button" class="profile__add-button"></button>
         </section>
-        <section class="pop-up pop-up_visability">
+        <section class="pop-up pop-up_edit-profile pop-up_visability">
           <div class="pop-up__box">
             <h2 class="pop-up__heading">Редактировать профиль</h2>
-            <form name="edit-form" class="pop-up__edit-form">
+            <form name="edit-form" class="pop-up__form pop-up__form_type_edit">
               <input type="text" name="name" class="pop-up__input pop-up__input_type_name" placeholder="Жак-Ив Кусто">
               <input type="text" name="description" class="pop-up__input pop-up__input_type_description" placeholder="Исследователь океана">
               <button type="submit" class="pop-up__save-button">Сохранить</button>
+             </form>
+            <button type="button" class="pop-up__close-button">
+              <img src="./images/close.svg" alt="закрыть" class="pop-up__close-icon">
+            </button>
+          </div>
+          <div class="pop-up__overlay"></div>
+        </section>
+        <section class="pop-up pop-up_add-place pop-up_visability">
+          <div class="pop-up__box">
+            <h2 class="pop-up__heading">Новое место</h2>
+            <form name="add-form" class="pop-up__form pop-up__form_type_add">
+              <input type="text" name="place-name" class="pop-up__input pop-up__input_place-name" placeholder="Название">
+              <input type="text" name="place-image" class="pop-up__input pop-up__input_type_place-image" placeholder="Ссылка на картинку">
+              <button type="submit" class="pop-up__save-button">Создать</button>
              </form>
             <button type="button" class="pop-up__close-button">
               <img src="./images/close.svg" alt="закрыть" class="pop-up__close-icon">
