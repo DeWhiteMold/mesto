@@ -33,7 +33,7 @@
               <input type="text" name="description" class="pop-up__input pop-up__input_type_description" placeholder="Исследователь океана">
               <button type="submit" class="pop-up__save-button">Сохранить</button>
              </form>
-            <button type="button" class="pop-up__close-button">
+            <button type="button" class="pop-up__close-button pop-up__close-button_edit">
               <img src="./images/close.svg" alt="закрыть" class="pop-up__close-icon">
             </button>
           </div>
@@ -43,67 +43,44 @@
           <div class="pop-up__box">
             <h2 class="pop-up__heading">Новое место</h2>
             <form name="add-form" class="pop-up__form pop-up__form_type_add">
-              <input type="text" name="place-name" class="pop-up__input pop-up__input_place-name" placeholder="Название">
+              <input type="text" name="place-name" class="pop-up__input pop-up__input_type_place-name" placeholder="Название">
               <input type="text" name="place-image" class="pop-up__input pop-up__input_type_place-image" placeholder="Ссылка на картинку">
               <button type="submit" class="pop-up__save-button">Создать</button>
              </form>
-            <button type="button" class="pop-up__close-button">
+            <button type="button" class="pop-up__close-button  pop-up__close-button_add">
               <img src="./images/close.svg" alt="закрыть" class="pop-up__close-icon">
             </button>
           </div>
           <div class="pop-up__overlay"></div>
         </section>
         <section class="gallery">
-          <ul class="gallery__table">
-            <li class="gallery__place">
-              <img src="./images/karachaevsk.jpg" alt="карачаевск" class="gallery__photo">
-              <div class="gallery__place-subscription">
-                <h2 class="gallery__place-name">Карачаевск</h2>
-                <button type="button" class="gallery__place-like"></button>
-              </div>
-            </li>
-            <li class="gallery__place">
-              <img src="./images/elbrus.jpg" alt="эльбрус" class="gallery__photo">
-              <div class="gallery__place-subscription">
-                <h2 class="gallery__place-name">Гора Эльбрус</h2>
-                <button type="button" class="gallery__place-like"></button>
-              </div>
-            </li>
-            <li class="gallery__place">
-              <img src="./images/dombai.jpg" alt="домбай" class="gallery__photo">
-              <div class="gallery__place-subscription">
-                <h2 class="gallery__place-name">Домбай</h2>
-                <button type="button" class="gallery__place-like"></button>
-              </div>
-            </li>
-            <li class="gallery__place">
-              <img src="./images/elbrus.jpg" alt="эльбрус" class="gallery__photo">
-              <div class="gallery__place-subscription">
-                <h2 class="gallery__place-name">Гора Эльбрус</h2>
-                <button type="button" class="gallery__place-like"></button>
-              </div>
-            </li>
-            <li class="gallery__place">
-              <img src="./images/dombai.jpg" alt="домбай" class="gallery__photo">
-              <div class="gallery__place-subscription">
-                <h2 class="gallery__place-name">Домбай</h2>
-                <button type="button" class="gallery__place-like"></button>
-              </div>
-            </li>
-            <li class="gallery__place">
-              <img src="./images/karachaevsk.jpg" alt="карачаевск" class="gallery__photo">
-              <div class="gallery__place-subscription">
-                <h2 class="gallery__place-name">Карачаево-Черкесия</h2>
-                <button type="button" class="gallery__place-like"></button>
-              </div>
-            </li>
-          </ul>
-      </section>
+          <ul class="gallery__table"></ul>
+        </section>
+        <section class="photo-pop-up pop-up_visability">
+          <div class="photo-pop-up__box">
+            <img src="#" alt="фото" class="photo-pop-up__image">
+            <h3 class="photo-pop-up__description"></h3>
+            <button type="button" class="pop-up__close-button  pop-up__close-button_photo">
+              <img src="./images/close.svg" alt="закрыть" class="pop-up__close-icon">
+            </button>
+          </div>
+          <div class="photo-pop-up__overlay"></div>
+        </section>
       </main>
       <footer class="footer">
         <p class="footer__copyright">© 2020 Mesto Russia</p>
       </footer>
     </div>
+    <template id="place">
+      <li class="gallery__place">
+        <img src="./images/remove.svg" alt="удалить" class="gallery__place-remove">
+        <img src="" alt="фото" class="gallery__photo">
+        <div class="gallery__place-subscription">
+          <h2 class="gallery__place-name"></h2>
+          <button type="button" class="gallery__place-like"></button>
+        </div>
+      </li>
+    </template>
     <script src="./script/script.js"></script>
   </body>
 </html>

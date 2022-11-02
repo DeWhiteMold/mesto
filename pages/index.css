@@ -30,11 +30,17 @@
 @import url(../bloks/pop-up/__overlay/pop-up__overlay.css);
 
 @import url(../bloks/gallery/__table/gallery__table.css);
+@import url(../bloks/gallery/__place-remove/gallery__place-remove.css);
 @import url(../bloks/gallery/__place/gallery__place.css);
 @import url(../bloks/gallery/__photo/gallery__photo.css);
 @import url(../bloks/gallery/__place-subscription/gallery__place-subscription.css);
 @import url(../bloks/gallery/__place-name/gallery__place-name.css);
 @import url(../bloks/gallery/__place-like/gallery__place-like.css);
+
+@import url(../bloks/photo-pop-up/photo-pop-up.css);
+@import url(../bloks/photo-pop-up/__image/photo-pop-up__image.css);
+@import url(../bloks/photo-pop-up/__description/photo-pop-up__descripton.css);
+@import url(../bloks/photo-pop-up/__overlay/photo-pop-up__overlay.css);
 
 @import url(../bloks/footer/footer.css);
 @import url(../bloks/footer/__copyright/footer__copyright.css);

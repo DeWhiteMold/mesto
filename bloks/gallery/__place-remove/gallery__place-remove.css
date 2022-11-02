@@ -1,0 +1,12 @@
+.gallery__place-remove {
+  position: absolute;
+  z-index: 1;
+  right: 20px;
+  top: 20px;
+  transition: .5s ease;
+}
+
+.gallery__place-remove:hover {
+  transition: .5s ease;
+  opacity: .6;
+}
