@@ -20,7 +20,7 @@ const placeTamplate = document.querySelector('#place').content;
 let closeAddButton = document.querySelector('.pop-up__close-button_add');
 
 const photoPopUp = document.querySelector('.photo-pop-up');
-const photoCloseButton = document.querySelector('.pop-up__close-button_photo');
+const photoCloseButton = document.querySelector('.photo-pop-up__close-button');
 
 
 const initialCards = [
@@ -66,7 +66,7 @@ function showPopUpAdd() {
 function hidePopUp() {
   popUpEdit.classList.add('pop-up_visability');
   popUpAdd.classList.add('pop-up_visability');
-  photoPopUp.classList.add('pop-up_visability');
+  photoPopUp.classList.add('photo-pop-up_visability');
 }
 
 
