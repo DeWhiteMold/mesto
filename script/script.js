@@ -92,7 +92,7 @@ initialCards.forEach(function(place) {
 
   userPlace.querySelector('.gallery__photo').addEventListener('click', function(evt){
     function showPhotoPopUp() {
-      photoPopUp.classList.remove('pop-up_visability');
+      photoPopUp.classList.remove('photo-pop-up_visability');
       photoPopUp.querySelector('.photo-pop-up__image').src = userPlace.querySelector('.gallery__photo').src;
       photoPopUp.querySelector('.photo-pop-up__description').textContent = userPlace.querySelector('.gallery__place-name').textContent;
     }
@@ -120,7 +120,7 @@ function addPlace (evt) {
 
   userPlace.querySelector('.gallery__photo').addEventListener('click', function(evt){
     function showPhotoPopUp() {
-      photoPopUp.classList.remove('pop-up_visability');
+      photoPopUp.classList.remove('photo-pop-up_visability');
       photoPopUp.querySelector('.photo-pop-up__image').src = userPlace.querySelector('.gallery__photo').src;
       photoPopUp.querySelector('.photo-pop-up__description').textContent = userPlace.querySelector('.gallery__place-name').textContent;
     }
