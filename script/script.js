@@ -103,7 +103,7 @@ initialCards.forEach(function(place) {
     userPlace.remove();
   })
 
-  gallery.append(userPlace);
+  gallery.prepend(userPlace);
 })
 
 
@@ -131,7 +131,7 @@ function addPlace (evt) {
     userPlace.remove();
   })
 
-  gallery.append(userPlace);
+  gallery.prepend(userPlace);
   hidePopUp();
 }
 
