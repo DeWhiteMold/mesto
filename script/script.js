@@ -46,31 +46,28 @@ const initialCards = [
 
 const openButtons = document.querySelectorAll('.open-button')
 
-function openPopUp(button ,popup) {
-  button.addEventListener('click', function(){
+function openPopUp(popup) {
     popup.classList.remove('pop-up_visability');
     photoInput.value = '';
     placeNameInput.value = '';
     nameInput.value = profileName.textContent;
     descriptionInput.value = profileDescription.textContent;
-  })
 }
 
-openPopUp(editButton, popUpEdit);
-openPopUp(addButton, popUpAdd);
+editButton.addEventListener('click', function() {openPopUp(popUpEdit)});
+addButton.addEventListener('click', function() {openPopUp(popUpAdd)});
 
-const allPopUps = document.querySelectorAll('.pop-up');
+const allCloseButtons = document.querySelectorAll('.pop-up__close-button');
 
 function hidePopUp(popup) {
-  popup.querySelector('.pop-up__close-button').addEventListener('click', function(evt){
-    evt.target.parentElement.parentElement.parentElement.classList.add('pop-up_visability');
-  })
+  popup.classList.add('pop-up_visability');
 }
 
-allPopUps.forEach(function(popup){
-  hidePopUp(popup);
-});
-
+allCloseButtons.forEach(function(button){
+  button.addEventListener('click', function() {
+    hidePopUp(button.parentElement.parentElement);
+  })
+})
 
 function submitProfileChange (evt) {
   evt.preventDefault();
@@ -78,8 +75,7 @@ function submitProfileChange (evt) {
   profileName.innerText = nameInput.value;
   profileDescription.innerText = descriptionInput.value;
 
-  popUpEdit.classList.add('pop-up_visability');
-}
+  hidePopUp(popUpEdit);}
 
 function createCard(name, photo) {
   const userPlace = placeTamplate.querySelector('.gallery__place').cloneNode(true);
@@ -93,7 +89,7 @@ function createCard(name, photo) {
   });
 
   userPlace.querySelector('.gallery__photo').addEventListener('click', function(evt){
-      openPopUp(userPlace.querySelector('.gallery__photo'), photoPopUp);
+      openPopUp(photoPopUp);
       photoPopUp.querySelector('.photo-pop-up__image').src = userPlace.querySelector('.gallery__photo').src;
       photoPopUp.querySelector('.photo-pop-up__description').textContent = userPlace.querySelector('.gallery__place-name').textContent;
  });
@@ -111,14 +107,13 @@ function addPlace (evt) {
   const userPlace = createCard(placeNameInput.value, photoInput.value);
 
   gallery.prepend(userPlace);
-  popUpAdd.classList.add('pop-up_visability');
+  hidePopUp(popUpAdd)
 }
 
 initialCards.forEach(function(place){
   const userPlace = createCard(place.name, place.link);
 
   gallery.prepend(userPlace);
-  popUpAdd.classList.add('pop-up_visability');
 })
 
 editForm.addEventListener('submit', submitProfileChange);
