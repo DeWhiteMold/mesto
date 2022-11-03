@@ -38,11 +38,8 @@
 @import url(../bloks/gallery/__place-like/gallery__place-like.css);
 
 @import url(../bloks/photo-pop-up/photo-pop-up.css);
-@import url(../bloks/photo-pop-up/_visabity/photo-pop-up_visability.css);
 @import url(../bloks/photo-pop-up/__image/photo-pop-up__image.css);
 @import url(../bloks/photo-pop-up/__description/photo-pop-up__descripton.css);
-@import url(../bloks/photo-pop-up/__close-button/photo-pop-up__close-button.css);
-@import url(../bloks/photo-pop-up/__close-icon/photo-pop-up__close-icon.css);
 @import url(../bloks/photo-pop-up/__overlay/photo-pop-up__overlay.css);
 
 @import url(../bloks/footer/footer.css);

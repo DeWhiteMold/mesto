@@ -1,27 +1,21 @@
-let profileName = document.querySelector('.profile__name');
-let profileDescription = document.querySelector('.profile__description');
-let nameInput = document.querySelector('.pop-up__input_type_name');
-let descriptionInput = document.querySelector('.pop-up__input_type_description');
+const profileName = document.querySelector('.profile__name');
+const profileDescription = document.querySelector('.profile__description');
+const nameInput = document.querySelector('.pop-up__input_type_name');
+const descriptionInput = document.querySelector('.pop-up__input_type_description');
 
-let editForm = document.querySelector('.pop-up__form_type_edit');
-let editButton = document.querySelector('.profile__edit-button');
-let addButton = document.querySelector('.profile__add-button');
-let closeEditButton = document.querySelector('.pop-up__close-button_edit');
-let overlay = document.querySelector('.pop-up__overlay');
-let popUpEdit = document.querySelector('.pop-up_edit-profile');
-let popUpAdd = document.querySelector('.pop-up_add-place');
+const editForm = document.querySelector('.pop-up__form_type_edit');
+const editButton = document.querySelector('.profile__edit-button');
+const addButton = document.querySelector('.profile__add-button');
+const popUpEdit = document.querySelector('.pop-up_edit-profile');
+const popUpAdd = document.querySelector('.pop-up_add-place');
 
-let photoInput = document.querySelector('.pop-up__input_type_place-image');
-let placeNameInput = document.querySelector('.pop-up__input_type_place-name');
-let gallery = document.querySelector('.gallery__table');
-let addForm = document.querySelector('.pop-up__form_type_add');
+const photoInput = document.querySelector('.pop-up__input_type_place-image');
+const placeNameInput = document.querySelector('.pop-up__input_type_place-name');
+const gallery = document.querySelector('.gallery__table');
+const addForm = document.querySelector('.pop-up__form_type_add');
 const placeTamplate = document.querySelector('#place').content;
 
-let closeAddButton = document.querySelector('.pop-up__close-button_add');
-
 const photoPopUp = document.querySelector('.photo-pop-up');
-const photoCloseButton = document.querySelector('.photo-pop-up__close-button');
-
 
 const initialCards = [
   {
@@ -50,97 +44,82 @@ const initialCards = [
   }
 ];
 
-function showPopUpEdit() {
-  popUpEdit.classList.remove('pop-up_visability');
-  nameInput.value = profileName.textContent;
-  descriptionInput.value = profileDescription.textContent;
+const openButtons = document.querySelectorAll('.open-button')
+
+function openPopUp(button ,popup) {
+  button.addEventListener('click', function(){
+    popup.classList.remove('pop-up_visability');
+    photoInput.value = '';
+    placeNameInput.value = '';
+    nameInput.value = profileName.textContent;
+    descriptionInput.value = profileDescription.textContent;
+  })
 }
 
-function showPopUpAdd() {
-  popUpAdd.classList.remove('pop-up_visability');
-  photoInput.value = '';
-  placeNameInput.value = '';
+openPopUp(editButton, popUpEdit);
+openPopUp(addButton, popUpAdd);
+
+const allPopUps = document.querySelectorAll('.pop-up');
+
+function hidePopUp(popup) {
+  popup.querySelector('.pop-up__close-button').addEventListener('click', function(evt){
+    evt.target.parentElement.parentElement.parentElement.classList.add('pop-up_visability');
+  })
 }
 
-
-function hidePopUp() {
-  popUpEdit.classList.add('pop-up_visability');
-  popUpAdd.classList.add('pop-up_visability');
-  photoPopUp.classList.add('photo-pop-up_visability');
-}
+allPopUps.forEach(function(popup){
+  hidePopUp(popup);
+});
 
 
-function formSubmitProfile (evt) {
+function submitProfileChange (evt) {
   evt.preventDefault();
 
   profileName.innerText = nameInput.value;
   profileDescription.innerText = descriptionInput.value;
 
-  hidePopUp();
+  popUpEdit.classList.add('pop-up_visability');
 }
 
-
-initialCards.forEach(function(place) {
+function createCard(name, photo) {
   const userPlace = placeTamplate.querySelector('.gallery__place').cloneNode(true);
 
-  userPlace.querySelector('.gallery__place-name').textContent = place.name;
-  userPlace.querySelector('.gallery__photo').src = place.link;
+  userPlace.querySelector('.gallery__place-name').textContent = name;
+  userPlace.querySelector('.gallery__photo').src = photo;
+  userPlace.querySelector('.gallery__photo').alt = name + ' фото';
 
   userPlace.querySelector('.gallery__place-like').addEventListener('click', function (evt) {
     evt.target.classList.toggle('gallery__place-like_active');
   });
 
   userPlace.querySelector('.gallery__photo').addEventListener('click', function(evt){
-    function showPhotoPopUp() {
-      photoPopUp.classList.remove('photo-pop-up_visability');
+      openPopUp(userPlace.querySelector('.gallery__photo'), photoPopUp);
       photoPopUp.querySelector('.photo-pop-up__image').src = userPlace.querySelector('.gallery__photo').src;
       photoPopUp.querySelector('.photo-pop-up__description').textContent = userPlace.querySelector('.gallery__place-name').textContent;
-    }
-    showPhotoPopUp();
-  })
+ });
 
   userPlace.querySelector('.gallery__place-remove').addEventListener('click', function(evt){
     userPlace.remove();
   })
 
-  gallery.prepend(userPlace);
-})
-
+  return userPlace;
+}
 
 function addPlace (evt) {
   evt.preventDefault();
-  const userPlace = placeTamplate.querySelector('.gallery__place').cloneNode(true);
 
-  userPlace.querySelector('.gallery__place-name').textContent = placeNameInput.value;
-  userPlace.querySelector('.gallery__photo').src = photoInput.value;
-
-  userPlace.querySelector('.gallery__place-like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('gallery__place-like_active');
-  });
-
-  userPlace.querySelector('.gallery__photo').addEventListener('click', function(evt){
-    function showPhotoPopUp() {
-      photoPopUp.classList.remove('photo-pop-up_visability');
-      photoPopUp.querySelector('.photo-pop-up__image').src = userPlace.querySelector('.gallery__photo').src;
-      photoPopUp.querySelector('.photo-pop-up__description').textContent = userPlace.querySelector('.gallery__place-name').textContent;
-    }
-    showPhotoPopUp();
-  })
-
-  userPlace.querySelector('.gallery__place-remove').addEventListener('click', function(evt){
-    userPlace.remove();
-  })
+  const userPlace = createCard(placeNameInput.value, photoInput.value);
 
   gallery.prepend(userPlace);
-  hidePopUp();
+  popUpAdd.classList.add('pop-up_visability');
 }
 
+initialCards.forEach(function(place){
+  const userPlace = createCard(place.name, place.link);
 
-editButton.addEventListener('click', showPopUpEdit);
-editForm.addEventListener('submit', formSubmitProfile);
-addButton.addEventListener('click', showPopUpAdd);
-closeAddButton.addEventListener('click', hidePopUp);
-closeEditButton.addEventListener('click', hidePopUp);
-photoCloseButton.addEventListener('click', hidePopUp);
-overlay.addEventListener('click', hidePopUp);
+  gallery.prepend(userPlace);
+  popUpAdd.classList.add('pop-up_visability');
+})
+
+editForm.addEventListener('submit', submitProfileChange);
 addForm.addEventListener('submit', addPlace);
