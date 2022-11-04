@@ -16,6 +16,8 @@ const addForm = document.querySelector('.pop-up__form_type_add');
 const placeTamplate = document.querySelector('#place').content;
 
 const photoPopUp = document.querySelector('.photo-pop-up');
+const photoPopUpImg = photoPopUp.querySelector('.photo-pop-up__image');
+const photoPopUpName = photoPopUp.querySelector('.photo-pop-up__description');
 
 const initialCards = [
   {
@@ -48,14 +50,21 @@ const openButtons = document.querySelectorAll('.open-button')
 
 function openPopUp(popup) {
     popup.classList.remove('pop-up_visability');
-    photoInput.value = '';
-    placeNameInput.value = '';
-    nameInput.value = profileName.textContent;
-    descriptionInput.value = profileDescription.textContent;
 }
 
-editButton.addEventListener('click', function() {openPopUp(popUpEdit)});
-addButton.addEventListener('click', function() {openPopUp(popUpAdd)});
+editButton.addEventListener('click', function() {
+
+  nameInput.value = profileName.textContent;
+  descriptionInput.value = profileDescription.textContent;
+
+  openPopUp(popUpEdit);
+});
+
+addButton.addEventListener('click', function() {
+  photoInput.value = '';
+  placeNameInput.value = '';
+  openPopUp(popUpAdd);
+});
 
 const allCloseButtons = document.querySelectorAll('.pop-up__close-button');
 
@@ -65,7 +74,7 @@ function hidePopUp(popup) {
 
 allCloseButtons.forEach(function(button){
   button.addEventListener('click', function() {
-    hidePopUp(button.parentElement.parentElement);
+    hidePopUp(button.closest('.pop-up'));
   })
 })
 
@@ -90,8 +99,9 @@ function createCard(name, photo) {
 
   userPlace.querySelector('.gallery__photo').addEventListener('click', function(evt){
       openPopUp(photoPopUp);
-      photoPopUp.querySelector('.photo-pop-up__image').src = userPlace.querySelector('.gallery__photo').src;
-      photoPopUp.querySelector('.photo-pop-up__description').textContent = userPlace.querySelector('.gallery__place-name').textContent;
+      photoPopUpImg.src = userPlace.querySelector('.gallery__photo').src;
+      photoPopUpName.textContent = userPlace.querySelector('.gallery__place-name').textContent;
+      photoPopUpImg.alt = userPlace.querySelector('.gallery__place-name').textContent + ' фото';
  });
 
   userPlace.querySelector('.gallery__place-remove').addEventListener('click', function(evt){
@@ -104,14 +114,14 @@ function createCard(name, photo) {
 function addPlace (evt) {
   evt.preventDefault();
 
-  const userPlace = createCard(placeNameInput.value, photoInput.value);
+  userPlace = createCard(placeNameInput.value, photoInput.value);
 
   gallery.prepend(userPlace);
   hidePopUp(popUpAdd)
 }
 
 initialCards.forEach(function(place){
-  const userPlace = createCard(place.name, place.link);
+  userPlace = createCard(place.name, place.link);
 
   gallery.prepend(userPlace);
 })
