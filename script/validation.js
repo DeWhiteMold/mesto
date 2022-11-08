@@ -1,22 +1,25 @@
 
 const settings = {
-  formSelector: '.pop-up__form',
-  inputSelector: '.pop-up__input',
+  formSelector: 'pop-up__form',
+  inputSelector: 'pop-up__input',
   submitButtonSelector: 'pop-up__save-button',
   inactiveButtonClass: 'pop-up__save-button_disabled',
   inputErrorClass: 'pop-up__input_type_error',
   errorClass: 'pop-up__input-error'
 };
 
+console.log(document.querySelector('.pop-up__form'));
+// console.log(document.querySelector(`${}`));
+
 const showError = (form, formInput, errorText) => {
   const errorMessage = form.querySelector(`.${formInput.name}-error`);
-  formInput.classList.add('pop-up__input_type_error');
+  formInput.classList.add(`${settings.inputErrorClass}`);
   errorMessage.textContent = errorText;
 };
 
 const hideError = (form, formInput) => {
   const errorMessage = form.querySelector(`.${formInput.name}-error`);
-  formInput.classList.remove('pop-up__input_type_error');
+  formInput.classList.remove(`${settings.inputErrorClass}`);
   errorMessage.textContent = '';
 };
 
@@ -37,18 +40,18 @@ const hasInvalidImput = (formInputs) => {
 
 const changeButtonState = (formInputs, saveButton) => {
   if(hasInvalidImput(formInputs)) {
-    saveButton.classList.add('pop-up__close-button_disabled');
+    saveButton.classList.add(`${settings.inactiveButtonClass}`);
     saveButton.setAttribute('disabled', true);
   }
   else {
-    saveButton.classList.remove('pop-up__close-button_disabled');
+    saveButton.classList.remove(`${settings.inactiveButtonClass}`);
     saveButton.removeAttribute('disabled');
   }
 }
 
 const addListeners = (form) => {
-  const formInputs = Array.from(form.querySelectorAll('.pop-up__input'));
-  const saveButton = form.querySelector('.pop-up__save-button');
+  const formInputs = Array.from(form.querySelectorAll(`.${settings.inputSelector}`));
+  const saveButton = form.querySelector(`.${settings.submitButtonSelector}`);
   changeButtonState(formInputs, saveButton);
   formInputs.forEach((input) => {
     input.addEventListener('input', () => {
@@ -59,7 +62,7 @@ const addListeners = (form) => {
 };
 
 const enableValidation = (settings) => {
-  const forms = Array.from(document.querySelectorAll(settings.formSelector));
+  const forms = Array.from(document.querySelectorAll(`.${settings.formSelector}`));
   forms.forEach((form) => {
     form.addEventListener('submit', (evt) => {
       evt.preventDefault();

@@ -76,7 +76,6 @@ allCloseButtons.forEach(function(button){
 
 function keyHandler(evt) {
   if(evt.key === 'Escape') {
-    console.log('hyi');
     document.querySelectorAll('.pop-up').forEach((popup => {
       if(!popup.classList.contains('.pop-up_visability')) {
         hidePopUp(popup);
@@ -94,23 +93,12 @@ function submitProfileChange (evt) {
 
   hidePopUp(popUpEdit);}
 
-function createCard(name, photo) {
-  const userPlace = placeTamplate.querySelector('.gallery__place').cloneNode(true);
-
-  const placePhoto = userPlace.querySelector('.gallery__photo')
-  userPlace.querySelector('.gallery__place-name').textContent = name;
-  placePhoto.src = photo;
-  placePhoto.alt = name + ' фото';
-
-  return userPlace;
-}
-
 gallery.addEventListener('click', (evt) => {
   if(evt.target.classList.contains('gallery__photo')) {
     openPopUp(photoPopUp);
     photoPopUpImage.src = evt.target.src;
     photoPopUp.querySelector('.photo-pop-up__description').textContent = evt.target.closest('.gallery__place').textContent;
-    photoPopUpImage.alt = evt.target.closest('.gallery__place').textContent + ' фото';
+    photoPopUpImage.alt = `${evt.target.closest('.gallery__place').textContent} фото`;
   }
   else if(evt.target.classList.contains('gallery__place-like')) {
     evt.target.classList.toggle('gallery__place-like_active');
@@ -120,10 +108,21 @@ gallery.addEventListener('click', (evt) => {
   }
 })
 
+function createCard(name, photo) {
+  const userPlace = placeTamplate.querySelector('.gallery__place').cloneNode(true);
+
+  const placePhoto = userPlace.querySelector('.gallery__photo')
+  userPlace.querySelector('.gallery__place-name').textContent = name;
+  placePhoto.src = photo;
+  placePhoto.alt = `${name} фото`;
+
+  return userPlace;
+}
+
 function addPlace (evt) {
   evt.preventDefault();
 
-  userPlace = createCard(placeNameInput.value, photoInput.value);
+  const userPlace = createCard(placeNameInput.value, photoInput.value);
 
   gallery.prepend(userPlace);
   addForm.reset();
@@ -132,7 +131,7 @@ function addPlace (evt) {
 }
 
 initialCards.forEach(function(place){
-  userPlace = createCard(place.name, place.link);
+  const userPlace = createCard(place.name, place.link);
 
   gallery.prepend(userPlace);
 })
