@@ -3,16 +3,16 @@ const profileDescription = document.querySelector('.profile__description');
 const nameInput = document.querySelector('.pop-up__input_type_name');
 const descriptionInput = document.querySelector('.pop-up__input_type_description');
 
-const editForm = document.querySelector('.pop-up__form_type_edit');
-const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button');
+const formEdit = document.querySelector('.pop-up__form_type_edit');
+const buttonEdit = document.querySelector('.profile__edit-button');
+const buttonAdd = document.querySelector('.profile__add-button');
 const popUpEdit = document.querySelector('.pop-up_edit-profile');
 const popUpAdd = document.querySelector('.pop-up_add-place');
 
 const photoInput = document.querySelector('.pop-up__input_type_place-image');
 const placeNameInput = document.querySelector('.pop-up__input_type_place-name');
 const gallery = document.querySelector('.gallery__table');
-const addForm = document.querySelector('.pop-up__form_type_add');
+const formAdd = document.querySelector('.pop-up__form_type_add');
 const placeTamplate = document.querySelector('#place').content;
 
 const photoPopUp = document.querySelector('.photo-pop-up');
@@ -47,10 +47,11 @@ const initialCards = [
 
 function openPopUp(popup) {
     popup.classList.remove('pop-up_visability');
-    document.addEventListener('keydown', keyHandler);
+    popup.classList.add('pop-up_opend');
+    document.addEventListener('keydown', setKeyHandler);
 }
 
-editButton.addEventListener('click', function() {
+buttonEdit.addEventListener('click', function() {
 
   nameInput.value = profileName.textContent;
   descriptionInput.value = profileDescription.textContent;
@@ -58,14 +59,17 @@ editButton.addEventListener('click', function() {
   openPopUp(popUpEdit);
 });
 
-addButton.addEventListener('click', function() {
+buttonAdd.addEventListener('click', function() {
   openPopUp(popUpAdd);
+  formAdd.addEventListener('submit', addPlace);
 });
 
 const allCloseButtons = document.querySelectorAll('.pop-up__close-button');
 
 function hidePopUp(popup) {
   popup.classList.add('pop-up_visability');
+  popup.classList.remove('pop-up_opend');
+  document.removeEventListener('keydown', setKeyHandler);
 }
 
 allCloseButtons.forEach(function(button){
@@ -74,16 +78,12 @@ allCloseButtons.forEach(function(button){
   })
 })
 
-function keyHandler(evt) {
+function setKeyHandler(evt) {
   if(evt.key === 'Escape') {
-    document.querySelectorAll('.pop-up').forEach((popup => {
-      if(!popup.classList.contains('.pop-up_visability')) {
-        hidePopUp(popup);
-        document.removeEventListener('keydown', keyHandler);
-      }
-    }))
+    hidePopUp(document.querySelector('.pop-up_opend'));
   }
 }
+
 
 function submitProfileChange (evt) {
   evt.preventDefault();
@@ -94,25 +94,25 @@ function submitProfileChange (evt) {
   hidePopUp(popUpEdit);}
 
 gallery.addEventListener('click', (evt) => {
-  if(evt.target.classList.contains('gallery__photo')) {
+  if(evt.target.classList.contains('place__photo')) {
     openPopUp(photoPopUp);
     photoPopUpImage.src = evt.target.src;
-    photoPopUp.querySelector('.photo-pop-up__description').textContent = evt.target.closest('.gallery__place').textContent;
-    photoPopUpImage.alt = `${evt.target.closest('.gallery__place').textContent} фото`;
+    photoPopUp.querySelector('.photo-pop-up__description').textContent = evt.target.closest('.place').textContent;
+    photoPopUpImage.alt = `${evt.target.closest('.place').textContent} фото`;
   }
-  else if(evt.target.classList.contains('gallery__place-like')) {
-    evt.target.classList.toggle('gallery__place-like_active');
+  else if(evt.target.classList.contains('place__like')) {
+    evt.target.classList.toggle('place__like_active');
   }
-  else if(evt.target.classList.contains('gallery__place-remove')) {
-    evt.target.closest('.gallery__place').remove();
+  else if(evt.target.classList.contains('place__remove')) {
+    evt.target.closest('.place').remove();
   }
 })
 
 function createCard(name, photo) {
-  const userPlace = placeTamplate.querySelector('.gallery__place').cloneNode(true);
+  const userPlace = placeTamplate.querySelector('.place').cloneNode(true);
 
-  const placePhoto = userPlace.querySelector('.gallery__photo')
-  userPlace.querySelector('.gallery__place-name').textContent = name;
+  const placePhoto = userPlace.querySelector('.place__photo')
+  userPlace.querySelector('.place__name').textContent = name;
   placePhoto.src = photo;
   placePhoto.alt = `${name} фото`;
 
@@ -125,8 +125,8 @@ function addPlace (evt) {
   const userPlace = createCard(placeNameInput.value, photoInput.value);
 
   gallery.prepend(userPlace);
-  addForm.reset();
-  addForm.removeEventListener('submit', addPlace);
+  formAdd.reset();
+  formAdd.removeEventListener('submit', addPlace);
   hidePopUp(popUpAdd)
 }
 
@@ -136,8 +136,7 @@ initialCards.forEach(function(place){
   gallery.prepend(userPlace);
 })
 
-editForm.addEventListener('submit', submitProfileChange);
-addForm.addEventListener('submit', addPlace);
+formEdit.addEventListener('submit', submitProfileChange);
 
 
 document.querySelector('.content').addEventListener('click', (evt) => {

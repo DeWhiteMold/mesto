@@ -8,9 +8,6 @@ const settings = {
   errorClass: 'pop-up__input-error'
 };
 
-console.log(document.querySelector('.pop-up__form'));
-// console.log(document.querySelector(`${}`));
-
 const showError = (form, formInput, errorText) => {
   const errorMessage = form.querySelector(`.${formInput.name}-error`);
   formInput.classList.add(`${settings.inputErrorClass}`);
