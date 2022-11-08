@@ -24,7 +24,10 @@
 @import url(../bloks/pop-up/__heading/pop-up__heading.css);
 @import url(../bloks/pop-up/__form/pop-up__form.css);
 @import url(../bloks/pop-up/__input/pop-up__input.css);
+@import url(../bloks/pop-up/__input/_type_error/pop-up__input_type_error.css);
+@import url(../bloks/pop-up/__input-error/pop-up__input-error.css);
 @import url(../bloks/pop-up/__save-button/pop-up__save-button.css);
+@import url(../bloks/pop-up/__save-button/_disabled/pop-up__save-button_disabled.css);
 @import url(../bloks/pop-up/__close-button/pop-up__close-button.css);
 @import url(../bloks/pop-up/__close-icon/pop-up__close-icon.css);
 @import url(../bloks/pop-up/__overlay/pop-up__overlay.css);

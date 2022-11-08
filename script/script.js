@@ -16,8 +16,7 @@ const addForm = document.querySelector('.pop-up__form_type_add');
 const placeTamplate = document.querySelector('#place').content;
 
 const photoPopUp = document.querySelector('.photo-pop-up');
-const photoPopUpImg = photoPopUp.querySelector('.photo-pop-up__image');
-const photoPopUpName = photoPopUp.querySelector('.photo-pop-up__description');
+const photoPopUpImage = photoPopUp.querySelector('.photo-pop-up__image');
 
 const initialCards = [
   {
@@ -46,10 +45,9 @@ const initialCards = [
   }
 ];
 
-const openButtons = document.querySelectorAll('.open-button')
-
 function openPopUp(popup) {
     popup.classList.remove('pop-up_visability');
+    document.addEventListener('keydown', keyHandler);
 }
 
 editButton.addEventListener('click', function() {
@@ -61,8 +59,6 @@ editButton.addEventListener('click', function() {
 });
 
 addButton.addEventListener('click', function() {
-  photoInput.value = '';
-  placeNameInput.value = '';
   openPopUp(popUpAdd);
 });
 
@@ -78,6 +74,18 @@ allCloseButtons.forEach(function(button){
   })
 })
 
+function keyHandler(evt) {
+  if(evt.key === 'Escape') {
+    console.log('hyi');
+    document.querySelectorAll('.pop-up').forEach((popup => {
+      if(!popup.classList.contains('.pop-up_visability')) {
+        hidePopUp(popup);
+        document.removeEventListener('keydown', keyHandler);
+      }
+    }))
+  }
+}
+
 function submitProfileChange (evt) {
   evt.preventDefault();
 
@@ -89,27 +97,28 @@ function submitProfileChange (evt) {
 function createCard(name, photo) {
   const userPlace = placeTamplate.querySelector('.gallery__place').cloneNode(true);
 
+  const placePhoto = userPlace.querySelector('.gallery__photo')
   userPlace.querySelector('.gallery__place-name').textContent = name;
-  userPlace.querySelector('.gallery__photo').src = photo;
-  userPlace.querySelector('.gallery__photo').alt = name + ' фото';
-
-  userPlace.querySelector('.gallery__place-like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('gallery__place-like_active');
-  });
-
-  userPlace.querySelector('.gallery__photo').addEventListener('click', function(evt){
-      openPopUp(photoPopUp);
-      photoPopUpImg.src = userPlace.querySelector('.gallery__photo').src;
-      photoPopUpName.textContent = userPlace.querySelector('.gallery__place-name').textContent;
-      photoPopUpImg.alt = userPlace.querySelector('.gallery__place-name').textContent + ' фото';
- });
-
-  userPlace.querySelector('.gallery__place-remove').addEventListener('click', function(evt){
-    userPlace.remove();
-  })
+  placePhoto.src = photo;
+  placePhoto.alt = name + ' фото';
 
   return userPlace;
 }
+
+gallery.addEventListener('click', (evt) => {
+  if(evt.target.classList.contains('gallery__photo')) {
+    openPopUp(photoPopUp);
+    photoPopUpImage.src = evt.target.src;
+    photoPopUp.querySelector('.photo-pop-up__description').textContent = evt.target.closest('.gallery__place').textContent;
+    photoPopUpImage.alt = evt.target.closest('.gallery__place').textContent + ' фото';
+  }
+  else if(evt.target.classList.contains('gallery__place-like')) {
+    evt.target.classList.toggle('gallery__place-like_active');
+  }
+  else if(evt.target.classList.contains('gallery__place-remove')) {
+    evt.target.closest('.gallery__place').remove();
+  }
+})
 
 function addPlace (evt) {
   evt.preventDefault();
@@ -117,6 +126,8 @@ function addPlace (evt) {
   userPlace = createCard(placeNameInput.value, photoInput.value);
 
   gallery.prepend(userPlace);
+  addForm.reset();
+  addForm.removeEventListener('submit', addPlace);
   hidePopUp(popUpAdd)
 }
 
@@ -128,3 +139,10 @@ initialCards.forEach(function(place){
 
 editForm.addEventListener('submit', submitProfileChange);
 addForm.addEventListener('submit', addPlace);
+
+
+document.querySelector('.content').addEventListener('click', (evt) => {
+  if(evt.target.classList.contains('pop-up__overlay')) {
+    hidePopUp(evt.target.closest('.pop-up'));
+  }
+})
