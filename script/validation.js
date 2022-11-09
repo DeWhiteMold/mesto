@@ -8,24 +8,24 @@ const settings = {
   errorClass: 'pop-up__input-error'
 };
 
-const showError = (form, formInput, errorText) => {
+const showError = (form, formInput, errorText, settings) => {
   const errorMessage = form.querySelector(`.${formInput.name}-error`);
-  formInput.classList.add(`${settings.inputErrorClass}`);
+  formInput.classList.add(settings.inputErrorClass);
   errorMessage.textContent = errorText;
 };
 
-const hideError = (form, formInput) => {
+const hideError = (form, formInput, settings) => {
   const errorMessage = form.querySelector(`.${formInput.name}-error`);
-  formInput.classList.remove(`${settings.inputErrorClass}`);
+  formInput.classList.remove(settings.inputErrorClass);
   errorMessage.textContent = '';
 };
 
-const isValid = (form, formInput) => {
+const isValid = (form, formInput, settings) => {
   if(!formInput.validity.valid) {
-    showError(form, formInput, formInput.validationMessage);
+    showError(form, formInput, formInput.validationMessage, settings);
   }
   else {
-    hideError(form, formInput);
+    hideError(form, formInput, settings);
   }
 };
 
@@ -35,25 +35,25 @@ const hasInvalidImput = (formInputs) => {
   });
 }
 
-const changeButtonState = (formInputs, saveButton) => {
+const changeButtonState = (formInputs, saveButton, settings) => {
   if(hasInvalidImput(formInputs)) {
-    saveButton.classList.add(`${settings.inactiveButtonClass}`);
+    saveButton.classList.add(settings.inactiveButtonClass);
     saveButton.setAttribute('disabled', true);
   }
   else {
-    saveButton.classList.remove(`${settings.inactiveButtonClass}`);
+    saveButton.classList.remove(settings.inactiveButtonClass);
     saveButton.removeAttribute('disabled');
   }
 }
 
-const addListeners = (form) => {
+const addListeners = (form, settings) => {
   const formInputs = Array.from(form.querySelectorAll(`.${settings.inputSelector}`));
   const saveButton = form.querySelector(`.${settings.submitButtonSelector}`);
-  changeButtonState(formInputs, saveButton);
+  changeButtonState(formInputs, saveButton, settings);
   formInputs.forEach((input) => {
     input.addEventListener('input', () => {
-      isValid(form, input);
-      changeButtonState(formInputs, saveButton);
+      isValid(form, input, settings);
+      changeButtonState(formInputs, saveButton, settings);
     });
   });
 };
@@ -64,7 +64,7 @@ const enableValidation = (settings) => {
     form.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    addListeners(form);
+    addListeners(form, settings);
   })
 }
 

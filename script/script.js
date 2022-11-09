@@ -48,6 +48,13 @@ const initialCards = [
 function openPopUp(popup) {
     popup.classList.remove('pop-up_visability');
     popup.classList.add('pop-up_opend');
+
+    if(popup.querySelector('.pop-up__save-button')) {
+      const saveButton = popup.querySelector('.pop-up__save-button');
+      saveButton.setAttribute('disabled', true);
+      saveButton.classList.add(`${settings.inactiveButtonClass}`);
+    }
+
     document.addEventListener('keydown', setKeyHandler);
 }
 
@@ -93,21 +100,6 @@ function submitProfileChange (evt) {
 
   hidePopUp(popUpEdit);}
 
-gallery.addEventListener('click', (evt) => {
-  if(evt.target.classList.contains('place__photo')) {
-    openPopUp(photoPopUp);
-    photoPopUpImage.src = evt.target.src;
-    photoPopUp.querySelector('.photo-pop-up__description').textContent = evt.target.closest('.place').textContent;
-    photoPopUpImage.alt = `${evt.target.closest('.place').textContent} фото`;
-  }
-  else if(evt.target.classList.contains('place__like')) {
-    evt.target.classList.toggle('place__like_active');
-  }
-  else if(evt.target.classList.contains('place__remove')) {
-    evt.target.closest('.place').remove();
-  }
-})
-
 function createCard(name, photo) {
   const userPlace = placeTamplate.querySelector('.place').cloneNode(true);
 
@@ -115,6 +107,21 @@ function createCard(name, photo) {
   userPlace.querySelector('.place__name').textContent = name;
   placePhoto.src = photo;
   placePhoto.alt = `${name} фото`;
+
+  placePhoto.addEventListener('click', (evt) => {
+    openPopUp(photoPopUp);
+    photoPopUpImage.src = evt.target.src;
+    photoPopUp.querySelector('.photo-pop-up__description').textContent = evt.target.closest('.place').textContent;
+    photoPopUpImage.alt = `${evt.target.closest('.place').textContent} фото`;
+  })
+
+  userPlace.querySelector('.place__like').addEventListener('click', (evt) => {
+    evt.target.classList.toggle('place__like_active');
+  });
+
+  userPlace.querySelector('.place__remove').addEventListener('click', (evt) => {
+    evt.target.closest('.place').remove();
+  });
 
   return userPlace;
 }
