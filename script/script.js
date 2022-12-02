@@ -1,3 +1,15 @@
+import Card from './modules/cardCreator.js';
+import FormValidator from './modules/validation.js';
+
+const settings = {
+  formSelector: 'pop-up__form',
+  inputSelector: 'pop-up__input',
+  submitButtonSelector: 'pop-up__save-button',
+  inactiveButtonClass: 'pop-up__save-button_disabled',
+  inputErrorClass: 'pop-up__input_type_error',
+  errorClass: 'pop-up__input-error'
+};
+
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const nameInput = document.querySelector('.pop-up__input_type_name');
@@ -9,14 +21,15 @@ const buttonAdd = document.querySelector('.profile__add-button');
 const popUpEdit = document.querySelector('.pop-up_edit-profile');
 const popUpAdd = document.querySelector('.pop-up_add-place');
 
-const photoInput = document.querySelector('.pop-up__input_type_place-image');
-const placeNameInput = document.querySelector('.pop-up__input_type_place-name');
 const gallery = document.querySelector('.gallery__table');
 const formAdd = document.querySelector('.pop-up__form_type_add');
 const placeTamplate = document.querySelector('#place').content;
 
 const photoPopUp = document.querySelector('.photo-pop-up');
 const photoPopUpImage = photoPopUp.querySelector('.photo-pop-up__image');
+
+const photoInput = document.querySelector('.pop-up__input_type_place-image');
+const placeNameInput = document.querySelector('.pop-up__input_type_place-name');
 
 const initialCards = [
   {
@@ -68,8 +81,8 @@ buttonEdit.addEventListener('click', function() {
 
 buttonAdd.addEventListener('click', function() {
   openPopUp(popUpAdd);
-  formAdd.addEventListener('submit', addPlace);
 });
+formAdd.addEventListener('submit', addPlace);
 
 const allCloseButtons = document.querySelectorAll('.pop-up__close-button');
 
@@ -92,7 +105,7 @@ function setKeyHandler(evt) {
 }
 
 
-function submitProfileChange (evt) {
+function submitProfileChange(evt) {
   evt.preventDefault();
 
   profileName.innerText = nameInput.value;
@@ -100,47 +113,19 @@ function submitProfileChange (evt) {
 
   hidePopUp(popUpEdit);}
 
-function createCard(name, photo) {
-  const userPlace = placeTamplate.querySelector('.place').cloneNode(true);
-
-  const placePhoto = userPlace.querySelector('.place__photo')
-  userPlace.querySelector('.place__name').textContent = name;
-  placePhoto.src = photo;
-  placePhoto.alt = `${name} фото`;
-
-  placePhoto.addEventListener('click', (evt) => {
-    openPopUp(photoPopUp);
-    photoPopUpImage.src = evt.target.src;
-    photoPopUp.querySelector('.photo-pop-up__description').textContent = evt.target.closest('.place').textContent;
-    photoPopUpImage.alt = `${evt.target.closest('.place').textContent} фото`;
-  })
-
-  userPlace.querySelector('.place__like').addEventListener('click', (evt) => {
-    evt.target.classList.toggle('place__like_active');
-  });
-
-  userPlace.querySelector('.place__remove').addEventListener('click', (evt) => {
-    evt.target.closest('.place').remove();
-  });
-
-  return userPlace;
-}
-
-function addPlace (evt) {
+function addPlace(evt) {
   evt.preventDefault();
 
-  const userPlace = createCard(placeNameInput.value, photoInput.value);
-
-  gallery.prepend(userPlace);
+  const userPlace = new Card(placeNameInput.value, photoInput.value, placeTamplate);
+  gallery.prepend(userPlace.createCard());
+  hidePopUp(popUpAdd);
   formAdd.reset();
-  formAdd.removeEventListener('submit', addPlace);
-  hidePopUp(popUpAdd)
 }
 
 initialCards.forEach(function(place){
-  const userPlace = createCard(place.name, place.link);
+  const userPlace = new Card(place.name, place.link, placeTamplate);
 
-  gallery.prepend(userPlace);
+  gallery.prepend(userPlace.createCard());
 })
 
 formEdit.addEventListener('submit', submitProfileChange);
@@ -151,3 +136,11 @@ document.querySelector('.content').addEventListener('click', (evt) => {
     hidePopUp(evt.target.closest('.pop-up'));
   }
 })
+
+const forms = Array.from(document.querySelectorAll(`.${settings.formSelector}`))
+forms.forEach((form) => {
+  const formValidator = new FormValidator(settings, form);
+  formValidator.enebleValidation();
+})
+
+export {photoPopUp, photoPopUpImage, openPopUp, settings};
