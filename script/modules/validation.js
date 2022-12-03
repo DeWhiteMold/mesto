@@ -65,5 +65,6 @@ export default class FormValidator {
       evt.preventDefault();
     })
     this._addListeners();
+    this._saveButton.setAttribute('disabled', true);
   }
 }

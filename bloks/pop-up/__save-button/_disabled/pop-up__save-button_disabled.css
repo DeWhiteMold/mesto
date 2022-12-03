@@ -5,3 +5,8 @@
   box-sizing: border-box;
   border: #000 solid 1px;
 }
+
+.pop-up__save-button_disabled:hover{
+  opacity: .2;
+  cursor: default;
+}
