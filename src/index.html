@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mesto</title>
-    <link rel="stylesheet" href="./pages/index.css">
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/logo.svg" alt="Лого" class="header__logo">
+        <img src="<%=require('./images/logo.svg')%>" alt="Лого" class="header__logo">
       </header>
       <main class="content">
         <section class="profile">
           <div class="profile__info-box">
-            <img src="./images/profile-photo.jpg" alt="аватар" class="profile__photo">
+            <img src="<%=require('./images/profile-photo.jpg')%>" alt="аватар" class="profile__photo">
             <div class="profile__text">
               <div class="profile__upper-line">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -36,7 +35,7 @@
               <button type="submit" class="pop-up__save-button">Сохранить</button>
              </form>
             <button type="button" class="pop-up__close-button pop-up__close-button_edit">
-              <img src="./images/close.svg" alt="закрыть" class="pop-up__close-icon">
+              <img src="<%=require('./images/close.svg')%>" alt="закрыть" class="pop-up__close-icon">
             </button>
           </div>
           <div class="pop-up__overlay"></div>
@@ -52,7 +51,7 @@
               <button type="submit" class="pop-up__save-button">Создать</button>
              </form>
             <button type="button" class="pop-up__close-button  pop-up__close-button_add">
-              <img src="./images/close.svg" alt="закрыть" class="pop-up__close-icon">
+              <img src="<%=require('./images/close.svg')%>" alt="закрыть" class="pop-up__close-icon">
             </button>
           </div>
           <div class="pop-up__overlay"></div>
@@ -65,7 +64,7 @@
             <img src="#" alt="фото" class="photo-pop-up__image">
             <h3 class="photo-pop-up__description"></h3>
             <button type="button" class="photo-pop-up__close-button pop-up__close-button pop-up__close-button_photo">
-              <img src="./images/close.svg" alt="закрыть" class="photo-pop-up__close-icon pop-up__close-icon">
+              <img src="<%=require('./images/close.svg')%>" alt="закрыть" class="photo-pop-up__close-icon pop-up__close-icon">
             </button>
           </div>
           <div class="pop-up__overlay photo-pop-up__overlay"></div>
@@ -77,7 +76,7 @@
     </div>
     <template id="place">
       <li class="place">
-        <img src="./images/remove.svg" alt="удалить" class="place__remove">
+        <img src="<%=require('./images/remove.svg')%>" alt="удалить" class="place__remove">
         <img src="#" alt="фото" class="place__photo open-button">
         <div class="place__subscription">
           <h2 class="place__name"></h2>
@@ -85,6 +84,5 @@
         </div>
       </li>
     </template>
-    <script type="module" src="./script/script.js"></script>
   </body>
 </html>

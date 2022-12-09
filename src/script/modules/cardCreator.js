@@ -1,12 +1,11 @@
-import {photoPopUp, photoPopUpImage, openPopUp} from '../script.js';
-
 export default class Card {
-  constructor(name, link, tamplate) {
+  constructor(name, link, tamplate, handleCardClick) {
     this._tamplate = tamplate;
     this._name = name;
     this._imgLink = link;
     this._card = this._getTemplate();
     this._photo = this._card.querySelector('.place__photo');
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -27,11 +26,7 @@ export default class Card {
 
   _addEventListeners() {
     this._card.querySelector('.place__photo').addEventListener('click', (evt) => {
-      photoPopUpImage.src = evt.target.src;
-      photoPopUp.querySelector('.photo-pop-up__description').textContent = evt.target.closest('.place').textContent;
-      photoPopUpImage.alt = `${evt.target.closest('.place').textContent} фото`;
-
-      openPopUp(photoPopUp);
+      this._handleCardClick(evt);
     })
 
     this._card.querySelector('.place__like').addEventListener('click', () => {
