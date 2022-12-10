@@ -6,6 +6,7 @@ export default class Card {
     this._card = this._getTemplate();
     this._photo = this._card.querySelector('.place__photo');
     this._handleCardClick = handleCardClick;
+    this._likeBtn = this._card.querySelector('.place__like');
   }
 
   _getTemplate() {
@@ -26,18 +27,30 @@ export default class Card {
 
   _addEventListeners() {
     this._card.querySelector('.place__photo').addEventListener('click', (evt) => {
-      this._handleCardClick(evt);
+      this._handleImageClick(evt);
     })
 
-    this._card.querySelector('.place__like').addEventListener('click', () => {
-      this._card.remove();
-      this._card = null;
+    this._likeBtn.addEventListener('click', () => {
+      this._toggleLike();
     });
 
-    this._card.querySelector('.place__remove').addEventListener('click', (evt) => {
-      evt.target.closest('.place').remove();
+    this._card.querySelector('.place__remove').addEventListener('click', () => {
+      this._removeCard();
     });
 
     return this._card;
+  }
+
+  _handleImageClick(evt) {
+    this._handleCardClick(evt);
+  }
+
+  _toggleLike() {
+    this._likeBtn.classList.toggle('place__like_active');
+  }
+
+  _removeCard() {
+    this._card.remove();
+    this._card = null;
   }
 }

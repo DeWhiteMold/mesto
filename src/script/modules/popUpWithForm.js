@@ -4,13 +4,12 @@ export default class PopUpWithForm extends PopUp {
   constructor(popUpSelector, submitForm) {
     super(popUpSelector)
     this._submitForm = submitForm;
-    this._form = this._popUp.querySelector('.pop-up__form')
+    this._form = this._popUp.querySelector('.pop-up__form');
+    this._inputs = Array.from(this._popUp.querySelectorAll('.pop-up__input'));
+    this._inputsData = {};
   }
 
   _getInputValues() {
-    this._inputs = Array.from(this._popUp.querySelectorAll('.pop-up__input'));
-    this._inputsData = {};
-
     this._inputs.forEach((input) => {
       this._inputsData[input.name] =  input.value;
     })

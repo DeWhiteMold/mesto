@@ -12,6 +12,11 @@ export const profileDescription = document.querySelector('.profile__description'
 export const nameInput = document.querySelector('.pop-up__input_type_name');
 export const descriptionInput = document.querySelector('.pop-up__input_type_description');
 
+export const formAdd = document.querySelector('.pop-up__form_type_add');
+export const formEdit = document.querySelector('.pop-up__form_type_edit');
+
+export const placeAddBtn = document.querySelector('.pop-up__form_type_add').querySelector(`.${settings.submitButtonSelector}`)
+
 export const buttonEdit = document.querySelector('.profile__edit-button');
 export const buttonAdd = document.querySelector('.profile__add-button');
 
@@ -43,5 +48,3 @@ export const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
-export const forms = Array.from(document.querySelectorAll(`.${settings.formSelector}`));

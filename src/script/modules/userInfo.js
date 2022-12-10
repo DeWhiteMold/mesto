@@ -16,5 +16,6 @@ export default class UserInfo {
   setUserInfo(newName, newDescription) {
     this._userName = newName;
     this._userDescription = newDescription;
+    console.log(this._userName, this._userDescription);
   }
 }
