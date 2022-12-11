@@ -10,8 +10,6 @@ export default class PopUp {
     this._popUp.classList.add('pop-up_opend');
     this._popUp.classList.remove('pop-up_visability');
     document.addEventListener('keydown', this._handleEscClose);
-    console.log(this._closeIcon)
-    console.log(this._popUp)
   }
 
   close() {
