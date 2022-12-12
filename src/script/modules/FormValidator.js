@@ -37,7 +37,7 @@ export default class FormValidator {
     })
   }
 
-  _changeButtonState() {
+  changeButtonState() {
     if(this._hasInvalidInput()) {
       this._saveButton.classList.add(this._inactiveButtonClass);
       this._saveButton.setAttribute('disabled', true);
@@ -51,11 +51,11 @@ export default class FormValidator {
   _addListeners() {
     this._formInputs = Array.from(this._form.querySelectorAll(`.${this._inputSelector}`));
     this._saveButton = this._form.querySelector(`.${this._submitButtonSelector}`);
-    this._changeButtonState();
+    this.changeButtonState();
     this._formInputs.forEach((input) => {
       input.addEventListener('input', () => {
         this._isValid(input);
-        this._changeButtonState();
+        this.changeButtonState();
       })
     })
   }

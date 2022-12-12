@@ -67,6 +67,7 @@ profilePopUp.setEventListeners();
 imagePopUp.setEventListeners();
 
 formEditValidation.enebleValidation();
+formAddValidation.enebleValidation();
 
 
 
@@ -75,7 +76,7 @@ formEditValidation.enebleValidation();
 buttonAdd.addEventListener('click', () => {
   newCardPopUp.open();
   
-  formAddValidation.enebleValidation();
+  formAddValidation.changeButtonState();
 })
 
 buttonEdit.addEventListener('click', () => {
