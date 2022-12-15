@@ -6,7 +6,9 @@
 .content{align-items:center;display:flex;flex-direction:column;margin-top:40px;max-width:880px}@media screen and (max-width:879px){.content{width:100%}}
 .profile{align-items:center;display:flex;flex-direction:row;justify-content:space-between;width:880px}@media screen and (max-width:879px){.profile{width:100%}}@media screen and (max-width:650px){.profile{flex-direction:column}}
 .profile__info-box{display:flex;flex-direction:row}@media screen and (max-width:650px){.profile__info-box{align-items:center;flex-direction:column}}
+.profile__avatar{display:flex;height:120px;position:relative}
 .profile__photo{border-radius:50%;height:120px;width:120px}
+.profile__change-avatar-btn{background-color:rgba(0,0,0,.8);background-image:url(8667ac4a523e8fc42e59.svg);background-position:50%;background-repeat:no-repeat;background-size:26px;border:none;height:120px;left:0;opacity:0;position:absolute;top:0;transition:.5s ease;width:120px}.profile__change-avatar-btn:hover{opacity:1}
 .profile__text{display:flex;flex-direction:column;margin-left:30px}@media screen and (max-width:650px){.profile__text{align-items:center;margin-left:0;margin-top:26px}}
 .profile__upper-line{align-items:baseline;display:flex;flex-direction:row}
 .profile__name{color:#fff;font-family:Inter,Arial;font-size:42px;font-weight:500;line-height:1.14;margin:21px 0 0;max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media screen and (max-width:750px){.profile__name{font-size:27px;line-height:33px;max-width:269px}}
@@ -20,6 +22,7 @@
 .pop-up__form{align-items:center;border:none;display:flex;flex-direction:column;margin:0;padding:0;width:calc(100% - 72px)}@media screen and (max-width:650px){.pop-up__edit-form{width:calc(100% - 44px)}}
 .pop-up__input{border:none;border-bottom:1px solid #5454;box-sizing:border-box;color:#000;font-family:Inter,Arial;font-size:14px;font-weight:400;height:40px;line-height:17px;padding:13px 0;width:100%}.pop-up__input:first-child{margin-top:41px}.pop-up__input:last-of-type{margin-top:0}@media screen and (max-width:650px){.pop-up__input:first-child{margin-top:62px}}
 .pop-up__input_type_error{border-bottom:1px solid red}
+.pop-up__input_type_avatar:first-child{margin-top:41px}
 .pop-up__input-error{color:red;font-family:Inter,Arial;font-size:12px;font-style:normal;font-weight:400;height:15px;line-height:15px;margin:2px 0 0;padding:0;width:100%}
 .pop-up__save-button{background-color:#000;border:none;border-radius:2px;color:#fff;cursor:pointer;font-family:Inter,Arial;font-size:18px;font-weight:400;height:50px;line-height:22px;margin-top:31px;padding:0;text-align:center;transition:.5s ease;width:100%}.pop-up__save-button:hover{opacity:.8;transition:.5s ease}@media screen and (max-width:650px){.pop-up__save-button{font-size:14px;height:46px;line-height:17px;margin-top:45px;width:100%}}
 .pop-up__save-button_disabled{background:transparent;border:1px solid #000;box-sizing:border-box;color:#000;opacity:.2}.pop-up__save-button_disabled:hover{cursor:default;opacity:.2}
