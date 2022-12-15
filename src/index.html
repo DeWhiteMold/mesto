@@ -13,7 +13,10 @@
       <main class="content">
         <section class="profile">
           <div class="profile__info-box">
-            <img src="<%=require('./images/profile-photo.jpg')%>" alt="аватар" class="profile__photo">
+            <div class="profile__avatar">
+              <img src="<%=require('./images/profile-photo.jpg')%>" alt="аватар" class="profile__photo">
+              <button type="button" class="profile__change-avatar-btn"></button>
+            </div>
             <div class="profile__text">
               <div class="profile__upper-line">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -24,6 +27,18 @@
           </div>
           <button type="button" class="profile__add-button open-button"></button>
         </section>
+        <section class="pop-up pop-up_change-avatar pop-up_visability">
+          <div class="pop-up__box">
+            <h2 class="pop-up__heading">Обновить аватар</h2>
+            <form name="avatar-form" class="pop-up__form pop-up__form_type_avatar" novalidate>
+              <input type="url" name="avatar" class="pop-up__input pop-up__input_type_avatar" placeholder="Ссылка на картинку" required>
+              <span class="pop-up__input-error avatar-error"></span>
+              <button type="submit" class="pop-up__save-button">Сохранить</button>
+            </form>
+          </div>
+          <button class="pop-up__close-button"><img src="<%=require('./images/close.svg')%>" alt="закрыть" class="pop-up__close-icon"></button>
+          <div class="pop-up__overlay"></div>
+        </section>
         <section class="pop-up pop-up_edit-profile pop-up_visability">
           <div class="pop-up__box">
             <h2 class="pop-up__heading">Редактировать профиль</h2>
@@ -33,7 +48,7 @@
               <input type="text" name="description" class="pop-up__input pop-up__input_type_description" placeholder="Исследователь океана" required minlength="2" maxlength="200">
               <span class="pop-up__input-error description-error"></span>
               <button type="submit" class="pop-up__save-button">Сохранить</button>
-             </form>
+            </form>
             <button type="button" class="pop-up__close-button pop-up__close-button_edit">
               <img src="<%=require('./images/close.svg')%>" alt="закрыть" class="pop-up__close-icon">
             </button>
@@ -49,7 +64,7 @@
               <input type="url" name="place-image" class="pop-up__input pop-up__input_type_place-image" placeholder="Ссылка на картинку" required>
               <span class="pop-up__input-error place-image-error"></span>
               <button type="submit" class="pop-up__save-button">Создать</button>
-             </form>
+            </form>
             <button type="button" class="pop-up__close-button  pop-up__close-button_add">
               <img src="<%=require('./images/close.svg')%>" alt="закрыть" class="pop-up__close-icon">
             </button>
@@ -68,6 +83,16 @@
             </button>
           </div>
           <div class="pop-up__overlay photo-pop-up__overlay"></div>
+        </section>
+        <section class="pop-up delete-card-pop-up pop-up_visability">
+          <div class="pop-up__box">
+            <h2 class="pop-up__heading">Вы уверены?</h2>
+            <form name="add-form" class="pop-up__form pop-up__form_type_delete-card" novalidate>
+              <button type="submit" class="pop-up__save-button">Да</button>
+            </form>
+          </div>
+          <button class="pop-up__close-button"><img src="<%=require('./images/close.svg')%>" alt="закрыть" class="pop-up__close-icon"></button>
+          <div class="pop-up__overlay"></div>
         </section>
       </main>
       <footer class="footer">

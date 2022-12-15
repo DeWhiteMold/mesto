@@ -1,11 +1,12 @@
 export default class Card {
-  constructor(name, link, tamplate, handleCardClick) {
+  constructor(name, link, tamplate, handleCardClick, handleRemoveClick) {
     this._tamplate = tamplate;
     this._name = name;
     this._imgLink = link;
     this._card = this._getTemplate();
     this._photo = this._card.querySelector('.place__photo');
     this._handleCardClick = handleCardClick;
+    this._handleRemoveClick = handleRemoveClick;
     this._likeBtn = this._card.querySelector('.place__like');
   }
 
@@ -35,7 +36,7 @@ export default class Card {
     });
 
     this._card.querySelector('.place__remove').addEventListener('click', () => {
-      this._removeCard();
+      this._handleRemoveClick(this._card);
     });
 
     return this._card;
@@ -49,7 +50,7 @@ export default class Card {
     this._likeBtn.classList.toggle('place__like_active');
   }
 
-  _removeCard() {
+  removeCard() {
     this._card.remove();
     this._card = null;
   }
