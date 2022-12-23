@@ -47,7 +47,9 @@
 @import url(../bloks/place/__photo/place__photo.css);
 @import url(../bloks/place/__subscription/place__subscription.css);
 @import url(../bloks/place/__name/place__name.css);
+@import url(../bloks/place/__likes/place__likes.css);
 @import url(../bloks/place/__like/place__like.css);
+@import url(../bloks/place/__likes-counter/place__like-counter.css);
 @import url(../bloks/place/__like/_active/place__like_active.css);
 
 @import url(../bloks/footer/footer.css);

@@ -1,13 +1,18 @@
 export default class Card {
-  constructor(name, link, tamplate, handleCardClick, handleRemoveClick) {
+  constructor(data, tamplate, handleCardClick, handleRemoveClick) {
     this._tamplate = tamplate;
-    this._name = name;
-    this._imgLink = link;
+    this._name = data.name;
+    this._imgLink = data.link;
     this._card = this._getTemplate();
     this._photo = this._card.querySelector('.place__photo');
     this._handleCardClick = handleCardClick;
     this._handleRemoveClick = handleRemoveClick;
     this._likeBtn = this._card.querySelector('.place__like');
+    this._likeCounter = this._card.querySelector('.place__like-counter');
+    this._likeCounter.textContent = data.likes.length;
+    this.ownerId = data.owner._id;
+    this.cardId = data._id;
+    this._removeBtn = this._card.querySelector('.place__remove');
   }
 
   _getTemplate() {
@@ -22,8 +27,9 @@ export default class Card {
     this._photo.alt = `${this._name} фото`;
 
     this._addEventListeners();
+    const newCard = this._card
 
-    return this._card;
+    return newCard;
   }
 
   _addEventListeners() {
@@ -35,8 +41,8 @@ export default class Card {
       this._toggleLike();
     });
 
-    this._card.querySelector('.place__remove').addEventListener('click', () => {
-      this._handleRemoveClick(this._card);
+    this._removeBtn.addEventListener('click', () => {
+      this._handleRemoveClick(this);
     });
 
     return this._card;
@@ -51,7 +57,11 @@ export default class Card {
   }
 
   removeCard() {
-    this._card.remove();
-    this._card = null;
+    console.log(this._card)
+    this._card.remove()
+  }
+
+  showRemoveBtn() {
+    this._removeBtn.removeAttribute('hidden');
   }
 }

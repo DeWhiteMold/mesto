@@ -5,43 +5,71 @@ import PopUpWithImage from './modules/popUpWithImage.js';
 import PopUpWithForm from './modules/popUpWithForm.js';
 import UserInfo from './modules/userInfo.js';
 import PopUpWithSubmitDelete from './modules/popUpWithSubmitDelete.js';
+import Api from './modules/Api.js';
 
 import { settings, photoInput, nameInput, descriptionInput, buttonAvatar, buttonEdit, buttonAdd, 
-  placeTamplate, initialCards, formAvatar, formAdd, formEdit } from './modules/data.js';
+  placeTamplate, initialCards, formAvatar, formAdd, formEdit, apiOption } from './modules/data.js';
+
+
+
+const api = new Api(apiOption);
+
+let userId = ''; 
+
+api.getUserInfo()
+  .then((res) => {
+    userInfo.setUserInfo(res.name, res.about);
+    userInfo.setUserPhoto(res.avatar);
+    userId = res._id;
+  })
+
+
+const cardGallery = new Section('.gallery__table');
+
+
+api.getInitialCards()
+  .then((res) => {(
+    cardGallery.renderItems({
+      items: res,
+      renderer: (item) => {
+        const newCard = createCard(item)
+        cardGallery.addItem(newCard);
+      }
+    })
+  )
+})
 
   
 
 //функции
 
-const createCard = (placeName, placeImg) => {
+const createCard = (data) => {
   const card = new Card(
-    placeName, 
-    placeImg, 
+    data,
     placeTamplate, 
     (evt) => {imagePopUp.open(evt)},
     () => {
-      replacementCardPopUp.open(card);
+      replacementCardPopUp.open(newCard);
     }
     );
   const newCard = card.createCard();
+  
+  newCard.__proto__ = card;
+  
+  if(newCard.ownerId === userId) {
+    newCard.showRemoveBtn();
+  }
 
   return newCard;
 }
 
 
 
+
+
 //Экземляры классов
 
-const cardGallery = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const newCard = createCard(item.name, item.link);
-      cardGallery.addItem(newCard);
-    }
-  },
-  '.gallery__table'
-)
+
 
 const userInfo = new UserInfo('.profile__name', '.profile__description', '.profile__photo');
 
@@ -49,6 +77,7 @@ const avatarPopUp = new PopUpWithForm(
     '.pop-up_change-avatar',
     (inputsValues) => {
       userInfo.setUserPhoto(inputsValues.avatar);
+      api.updateUsetAvatar(inputsValues.avatar);
     }
   )
 
@@ -56,22 +85,26 @@ const profilePopUp = new PopUpWithForm(
     '.pop-up_edit-profile',
     (inputsValues) => {
       userInfo.setUserInfo(inputsValues.name, inputsValues.description);
+      api.updateUsetInfo(inputsValues.name, inputsValues.description);
     }
   );
 
 const newCardPopUp = new PopUpWithForm(
     '.pop-up_add-place',
     (inputsValues) => {
-      const newCard = createCard(inputsValues["place-name"], inputsValues["place-image"]);
-      cardGallery.addItem(newCard);
+      api.postNewCard(inputsValues["place-name"], inputsValues["place-image"])
+        .then((res) => {
+          const newCard = createCard(res);
+          cardGallery.addItem(newCard);
+        });
     }
    );
 
-const replacementCardPopUp = new PopUpWithSubmitDelete(
+   const replacementCardPopUp = new PopUpWithSubmitDelete(
     '.delete-card-pop-up',
     (item) => {
-      const itemToDelete = item;
-      itemToDelete.removeCard()
+      api.deleteCard(item.cardId)
+        .then(() => {item.removeCard()})
     }
   )
 
@@ -85,7 +118,6 @@ const formEditValidation = new FormValidator(settings, formEdit);
 
 //Вызовы методов классов
 
-cardGallery.renderItems();
 
 avatarPopUp.setEventListeners();
 newCardPopUp.setEventListeners();

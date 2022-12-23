@@ -101,11 +101,14 @@
     </div>
     <template id="place">
       <li class="place">
-        <img src="<%=require('./images/remove.svg')%>" alt="удалить" class="place__remove">
+        <img src="<%=require('./images/remove.svg')%>" alt="удалить" class="place__remove" hidden>
         <img src="#" alt="фото" class="place__photo open-button">
         <div class="place__subscription">
           <h2 class="place__name"></h2>
-          <button type="button" class="place__like"></button>
+          <div class="place__likes">
+            <button type="button" class="place__like"></button>
+            <div class="place__like-counter">0</div>
+          </div>
         </div>
       </li>
     </template>

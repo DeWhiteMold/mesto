@@ -7,10 +7,10 @@ export default class PopUpWithSubmitDelete extends PopUp {
     this._form = this._popUp.querySelector('.pop-up__form');
   }
 
-  open(itemToDelete) {
+  open(item) {
     super.open();
 
-    this._getItemToDelete(itemToDelete);
+    this._getItemToDelete(item);
 
   }
 

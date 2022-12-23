@@ -47,3 +47,9 @@ export const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+export const apiOption = {
+  cohort: 'cohort-56',
+  token: '9cb52c99-f67f-46e2-9334-b1984a2ebddd',
+  serverLink: 'https://mesto.nomoreparties.co/v1'
+}
