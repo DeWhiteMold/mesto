@@ -8,7 +8,7 @@ import PopUpWithSubmitDelete from './modules/popUpWithSubmitDelete.js';
 import Api from './modules/Api.js';
 
 import { settings, photoInput, nameInput, descriptionInput, buttonAvatar, buttonEdit, buttonAdd, 
-  placeTamplate, initialCards, formAvatar, formAdd, formEdit, apiOption } from './modules/data.js';
+  placeTamplate, formAvatar, formAdd, formEdit, apiOption } from './modules/data.js';
 
 
 
@@ -46,19 +46,29 @@ api.getInitialCards()
 const createCard = (data) => {
   const card = new Card(
     data,
+    userId,
     placeTamplate, 
     (evt) => {imagePopUp.open(evt)},
     () => {
-      replacementCardPopUp.open(newCard);
+      replacementCardPopUp.changeButtonStateToNormal();
+      replacementCardPopUp.open(card);
+    },
+    () => {
+      api.addLike(card.cardId)
+        .then((res) => {
+          card.setAmountOfLikes(res);
+        })
+        .then(card.addLike());
+    },
+    () => {
+      api.deleteLike(card.cardId)
+      .then((res) => {
+        card.setAmountOfLikes(res);
+      })
+      .then(card.deleteLike());
     }
     );
   const newCard = card.createCard();
-  
-  newCard.__proto__ = card;
-  
-  if(newCard.ownerId === userId) {
-    newCard.showRemoveBtn();
-  }
 
   return newCard;
 }
@@ -76,6 +86,7 @@ const userInfo = new UserInfo('.profile__name', '.profile__description', '.profi
 const avatarPopUp = new PopUpWithForm(
     '.pop-up_change-avatar',
     (inputsValues) => {
+      avatarPopUp.changeButtonStateToSaving();
       userInfo.setUserPhoto(inputsValues.avatar);
       api.updateUsetAvatar(inputsValues.avatar);
     }
@@ -84,6 +95,7 @@ const avatarPopUp = new PopUpWithForm(
 const profilePopUp = new PopUpWithForm(
     '.pop-up_edit-profile',
     (inputsValues) => {
+      profilePopUp.changeButtonStateToSaving();
       userInfo.setUserInfo(inputsValues.name, inputsValues.description);
       api.updateUsetInfo(inputsValues.name, inputsValues.description);
     }
@@ -92,6 +104,7 @@ const profilePopUp = new PopUpWithForm(
 const newCardPopUp = new PopUpWithForm(
     '.pop-up_add-place',
     (inputsValues) => {
+      newCardPopUp.changeButtonStateToSaving();
       api.postNewCard(inputsValues["place-name"], inputsValues["place-image"])
         .then((res) => {
           const newCard = createCard(res);
@@ -103,8 +116,10 @@ const newCardPopUp = new PopUpWithForm(
    const replacementCardPopUp = new PopUpWithSubmitDelete(
     '.delete-card-pop-up',
     (item) => {
+      replacementCardPopUp.changeButtonStateToSaving();
       api.deleteCard(item.cardId)
         .then(() => {item.removeCard()})
+      console.log(item.cardId)
     }
   )
 
@@ -138,10 +153,12 @@ buttonAvatar.addEventListener('click', () => {
 
   photoInput.value = userPhoto;
 
+  avatarPopUp.changeButtonStateToNormal();
   avatarPopUp.open();
 })
 
 buttonAdd.addEventListener('click', () => {
+  newCardPopUp.changeButtonStateToNormal();
   newCardPopUp.open();
   
   formAddValidation.changeButtonState();
@@ -153,5 +170,6 @@ buttonEdit.addEventListener('click', () => {
   nameInput.value = userData.name;
   descriptionInput.value = userData.description;
 
+  profilePopUp.changeButtonStateToNormal();
   profilePopUp.open();
 })

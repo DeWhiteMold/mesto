@@ -1,6 +1,7 @@
 export default class Card {
-  constructor(data, tamplate, handleCardClick, handleRemoveClick) {
+  constructor(data, userId, tamplate, handleCardClick, handleRemoveClick, handleLike, handleDeleteLike) {
     this._tamplate = tamplate;
+    this._userId = userId;
     this._name = data.name;
     this._imgLink = data.link;
     this._card = this._getTemplate();
@@ -8,8 +9,11 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._handleRemoveClick = handleRemoveClick;
     this._likeBtn = this._card.querySelector('.place__like');
+    this._likes = data.likes
+    this._activeLikeSelector = 'place__like_active';
     this._likeCounter = this._card.querySelector('.place__like-counter');
-    this._likeCounter.textContent = data.likes.length;
+    this._handleLike = handleLike;
+    this._handleDeleteLike = handleDeleteLike;
     this.ownerId = data.owner._id;
     this.cardId = data._id;
     this._removeBtn = this._card.querySelector('.place__remove');
@@ -25,6 +29,17 @@ export default class Card {
     this._card.querySelector('.place__name').textContent = this._name;
     this._photo.src = this._imgLink;
     this._photo.alt = `${this._name} фото`;
+    this._likeCounter.textContent = this._likes.length;
+
+    if(this._userId === this.ownerId) {
+      this._showRemoveBtn();
+    }
+
+    this._likes.forEach((like) => {
+      if(like._id === this._userId) {
+        this.addLike();
+      }
+    })
 
     this._addEventListeners();
     const newCard = this._card
@@ -38,7 +53,12 @@ export default class Card {
     })
 
     this._likeBtn.addEventListener('click', () => {
-      this._toggleLike();
+      if(this._checkIfLiked()) {
+        this._handleDeleteLike();
+      }
+      else {
+        this._handleLike()
+      }
     });
 
     this._removeBtn.addEventListener('click', () => {
@@ -52,8 +72,24 @@ export default class Card {
     this._handleCardClick(evt);
   }
 
-  _toggleLike() {
-    this._likeBtn.classList.toggle('place__like_active');
+  setAmountOfLikes(newCard) {
+    this._likeCounter.textContent = newCard.likes.length;
+  }
+
+  _checkIfLiked() {
+    if(this._likeBtn.classList.contains(this._activeLikeSelector)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  addLike() {
+    this._likeBtn.classList.add(this._activeLikeSelector);
+  }
+
+  deleteLike() {
+    this._likeBtn.classList.remove(this._activeLikeSelector);
   }
 
   removeCard() {
@@ -61,7 +97,7 @@ export default class Card {
     this._card.remove()
   }
 
-  showRemoveBtn() {
+  _showRemoveBtn() {
     this._removeBtn.removeAttribute('hidden');
   }
 }

@@ -30,4 +30,12 @@ export default class PopUpWithSubmitDelete extends PopUp {
       this.close();
     })
   }
+  
+  changeButtonStateToSaving() {
+    this._saveBtn.textContent = 'Удаление...'
+  }
+
+  changeButtonStateToNormal() {
+    this._saveBtn.textContent = 'Да'
+  }
 }
