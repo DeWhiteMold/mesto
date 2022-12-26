@@ -36,6 +36,7 @@
 .photo-pop-up__overlay{background-color:#000;height:100vh;left:0;opacity:.9;position:fixed;top:0;width:100vw;z-index:-1}
 .place{background-color:#fff;border-radius:10px;display:flex;flex-direction:column;height:329px;padding-bottom:32px;position:relative}
 .place__remove{position:absolute;right:20px;top:20px;transition:.5s ease;z-index:1}.place__remove:hover{opacity:.6;transition:.5s ease}
+.place__remove_hidden{opacity:0;visibility:hidden}
 .place__photo{border-radius:10px 10px 0 0;min-height:282px;-o-object-position:center;object-position:center;width:282px}
 .place__subscription{align-items:center;display:flex;flex-direction:row;justify-content:space-between;width:100%}
 .place__name{font-family:Inter,Arial;font-size:24px;font-weight:900;line-height:29px;margin:25px 0 32px 21px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:70%}
