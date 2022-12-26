@@ -44,6 +44,7 @@
 
 @import url(../bloks/place/place.css);
 @import url(../bloks/place/__remove/place__remove.css);
+@import url(../bloks/place/__remove/_hidden/place__remove_hidden.css);
 @import url(../bloks/place/__photo/place__photo.css);
 @import url(../bloks/place/__subscription/place__subscription.css);
 @import url(../bloks/place/__name/place__name.css);

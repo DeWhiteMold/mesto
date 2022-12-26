@@ -1,4 +1,4 @@
-import PopUp from "./popUp.js";
+import PopUp from "./PopUp.js";
 
 export default class PopUpWithForm extends PopUp {
   constructor(popUpSelector, submitForm) {
@@ -25,8 +25,6 @@ export default class PopUpWithForm extends PopUp {
 
       const inputsValues = this._getInputValues();
       this._submitForm(inputsValues);
-
-      this.close();
     })
   }
 
@@ -35,11 +33,7 @@ export default class PopUpWithForm extends PopUp {
     this._form.reset();
   }
 
-  changeButtonStateToSaving() {
-    this._saveBtn.textContent = 'Сохранение...'
-  }
-
-  changeButtonStateToNormal() {
-    this._saveBtn.textContent = 'Сохраненить'
+  changeButtonText(saveBtnText) {
+    this._saveBtn.textContent = saveBtnText;
   }
 }

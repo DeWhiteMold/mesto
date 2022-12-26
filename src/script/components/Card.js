@@ -1,11 +1,11 @@
 export default class Card {
-  constructor(data, userId, tamplate, handleCardClick, handleRemoveClick, handleLike, handleDeleteLike) {
-    this._tamplate = tamplate;
+  constructor(data, userId, tamplateSelector, handleCardClick, handleRemoveClick, handleLike, handleDeleteLike) {
+    this._tamplate = document.querySelector(tamplateSelector).content;
     this._userId = userId;
-    this._name = data.name;
+    this.name = data.name;
     this._imgLink = data.link;
     this._card = this._getTemplate();
-    this._photo = this._card.querySelector('.place__photo');
+    this.photo = this._card.querySelector('.place__photo');
     this._handleCardClick = handleCardClick;
     this._handleRemoveClick = handleRemoveClick;
     this._likeBtn = this._card.querySelector('.place__like');
@@ -26,9 +26,9 @@ export default class Card {
   }
 
   createCard() {
-    this._card.querySelector('.place__name').textContent = this._name;
-    this._photo.src = this._imgLink;
-    this._photo.alt = `${this._name} фото`;
+    this._card.querySelector('.place__name').textContent = this.name;
+    this.photo.src = this._imgLink;
+    this.photo.alt = `${this.name} фото`;
     this._likeCounter.textContent = this._likes.length;
 
     if(this._userId === this.ownerId) {
@@ -48,7 +48,7 @@ export default class Card {
   }
 
   _addEventListeners() {
-    this._card.querySelector('.place__photo').addEventListener('click', (evt) => {
+    this.photo.addEventListener('click', (evt) => {
       this._handleImageClick(evt);
     })
 
@@ -93,11 +93,10 @@ export default class Card {
   }
 
   removeCard() {
-    console.log(this._card)
     this._card.remove()
   }
 
   _showRemoveBtn() {
-    this._removeBtn.removeAttribute('hidden');
+    this._removeBtn.classList.remove('place__remove_hidden');
   }
 }

@@ -1,10 +1,11 @@
-import PopUp from "./popUp.js";
+import PopUp from "./PopUp.js";
 
 export default class PopUpWithSubmitDelete extends PopUp {
   constructor(popUpSelector, deleteMethod) {
     super(popUpSelector);
     this._deleteMethod = deleteMethod;
     this._form = this._popUp.querySelector('.pop-up__form');
+    this._saveBtn = this._form.querySelector('.pop-up__save-button');
   }
 
   open(item) {
@@ -25,17 +26,10 @@ export default class PopUpWithSubmitDelete extends PopUp {
       evt.preventDefault();
 
       this._deleteMethod(this._itemToDelete);
-      this._itemToDelete = null;
-
-      this.close();
     })
   }
   
-  changeButtonStateToSaving() {
-    this._saveBtn.textContent = 'Удаление...'
-  }
-
-  changeButtonStateToNormal() {
-    this._saveBtn.textContent = 'Да'
+  changeButtonText(saveBtnText) {
+    this._saveBtn.textContent = saveBtnText;
   }
 }
