@@ -7,9 +7,6 @@ export const settings = {
   errorClass: 'pop-up__input-error'
 };
 
-export const avatar = document.querySelector('.profile__photo');
-
-export const photoInput = document.querySelector('.pop-up__input_type_avatar');
 export const nameInput = document.querySelector('.pop-up__input_type_name');
 export const descriptionInput = document.querySelector('.pop-up__input_type_description');
 

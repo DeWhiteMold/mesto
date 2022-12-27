@@ -7,7 +7,7 @@ import UserInfo from './components/UserInfo.js';
 import PopUpWithSubmitDelete from './components/PopUpWithSubmitDelete.js';
 import Api from './components/Api.js';
 
-import { settings, avatar, photoInput, nameInput, 
+import { settings, nameInput, 
   descriptionInput, buttonAvatar, buttonEdit, buttonAdd, 
   formAvatar, formAdd, formEdit, apiOption } from './components/data.js';
 
@@ -15,33 +15,22 @@ import { settings, avatar, photoInput, nameInput,
 
 const api = new Api(apiOption);
 
-let userId = ''; 
-let cardsData = '';
-let userData = '';
+let userId = '';
 
 Promise.all([
-  api.getUserInfo()
-    .then((res) => {
-      userData = res;
-    }),
+
+  api.getUserInfo(),
 
   api.getInitialCards()
-    .then((res) => {
-      cardsData = res;
-    })
+
   ])
-  .then(() => {
+  .then(([userData, cardsData]) => {
     userInfo.setUserInfo(userData.name, userData.about);
-    avatar.src = userData.avatar;
+    userInfo.setUserAvatar(userData.avatar);
     userId = userData._id;
     cardGallery.renderItems(cardsData);
   })
-  .catch((err)=>{
-    console.log(err);
-  }) 
-
-
-
+  .catch((err)=>{ console.log(err) }) 
 
   
 
@@ -54,7 +43,6 @@ const createCard = (data) => {
     '#place', 
     (evt) => {imagePopUp.open(card)},
     () => {
-      replacementCardPopUp.changeButtonText('Да');
       replacementCardPopUp.open(card);
     },
     () => {
@@ -63,7 +51,7 @@ const createCard = (data) => {
           card.setAmountOfLikes(res);
         })
         .then(() => { card.addLike() })
-        .catch(() => { console.log(err) });
+        .catch((err) => { console.log(err) });
     },
     () => {
       api.deleteLike(card.cardId)
@@ -71,7 +59,7 @@ const createCard = (data) => {
         card.setAmountOfLikes(res);
       })
       .then(() => { card.deleteLike() })
-      .catch(() => { console.log(err) });
+      .catch((err) => { console.log(err) });
     }
     );
   const newCard = card.createCard();
@@ -83,7 +71,7 @@ const createCard = (data) => {
 
 //Экземляры классов
 
-const userInfo = new UserInfo('.profile__name', '.profile__description');
+const userInfo = new UserInfo('.profile__name', '.profile__description', '.profile__photo');
 
 const cardGallery = new Section(
   '.gallery__table', 
@@ -98,9 +86,9 @@ const avatarPopUp = new PopUpWithForm(
     (inputsValues) => {
       avatarPopUp.changeButtonText('Сохранение...');
       api.updateUsetAvatar(inputsValues.avatar)
-        .then(() => { avatar.src = inputsValues.avatar })
+        .then((res) => { userInfo.setUserAvatar(res.avatar) })
         .then(() => { avatarPopUp.close() })
-        .catch(() => { console.log(err) })
+        .catch((err) => { console.log(err) })
         .finally(() => { avatarPopUp.changeButtonText('Сохранить') })
     }
   )
@@ -110,11 +98,11 @@ const profilePopUp = new PopUpWithForm(
     (inputsValues) => {
       profilePopUp.changeButtonText('Сохранение...');
       api.updateUsetInfo(inputsValues.name, inputsValues.description)
-        .then(() => { 
-          userInfo.setUserInfo(inputsValues.name, inputsValues.description)
+        .then((res) => { 
+          userInfo.setUserInfo(res.name, res.about)
         })
         .then(() => { profilePopUp.close() })
-        .catch(() => { console.log(err) })
+        .catch((err) => { console.log(err) })
         .finally(() => { profilePopUp.changeButtonText('Сохранить') })
     }
   );
@@ -129,8 +117,8 @@ const newCardPopUp = new PopUpWithForm(
           cardGallery.addItem(newCard);
         })
         .then(() => { newCardPopUp.close() })
-        .catch(() => { console.log(err) })
-        .finally(() => { newCardPopUp.changeButtonText('Сохранить') })
+        .catch((err) => { console.log(err) })
+        .finally(() => { newCardPopUp.changeButtonText('Создать') })
     }
    );
 
@@ -141,7 +129,7 @@ const newCardPopUp = new PopUpWithForm(
       api.deleteCard(item.cardId)
         .then(() => { item.removeCard() })
         .then(() => { replacementCardPopUp.close() })
-        .catch(() => { console.log(err) })
+        .catch((err) => { console.log(err) })
         .finally(() => { replacementCardPopUp.changeButtonText('Да')})
     }
   )
@@ -172,8 +160,6 @@ formAddValidation.enebleValidation();
 //Добавление слушателей
 
 buttonAvatar.addEventListener('click', () => {
-  photoInput.value = avatar.src;
-
   avatarPopUp.open();
 })
 
